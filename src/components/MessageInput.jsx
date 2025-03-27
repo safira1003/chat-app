@@ -53,14 +53,11 @@ function MessageInput({ onSendMessage }) {
     };
 
     return (
-        <div className="flex flex-wrap items-center gap-2 md:gap-3 p-3 md:p-4 bg-white/80 backdrop-blur-md shadow-lg border border-gray-200 rounded-2xl">
-            {/* Upload File */}
+        <div className="flex flex-wrap items-center gap-2 md:gap-3 p-3 md:p-4 bg-white/80 backdrop-blur-md shadow-lg border border-gray-200 rounded-t-2xl">
             <label className="cursor-pointer text-gray-600 hover:text-gray-900 transition">
                 <FontAwesomeIcon icon={faPaperclip} className="text-xl md:text-2xl" />
                 <input type="file" className="hidden" onChange={handleFileChange} accept="image/*,video/mp4,application/pdf" />
             </label>
-
-            {/* Input Message */}
             <div className="relative flex-1 w-full md:w-auto">
                 <input
                     type="text"
@@ -79,7 +76,6 @@ function MessageInput({ onSendMessage }) {
                 )}
             </div>
 
-            {/* Send Button */}
             <button
                 className="cursor-pointer px-4 py-2 md:px-5 md:py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-md hover:scale-105 transition-transform duration-200"
                 onClick={handleSend}

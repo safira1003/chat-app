@@ -3,7 +3,7 @@ import ChatHeader from "./ChatHeader";
 import ChatMessages from "./ChatMessages";
 import MessageInput from "./MessageInput";
 
-function ChatRoom({ room, userRole }) {
+function ChatRoom({ room, userRole, onBack  }) {
     const storageKey = `chatRoom_${room.room.id}`;
 
     const [messages, setMessages] = useState(() => {
@@ -33,19 +33,16 @@ function ChatRoom({ room, userRole }) {
     };
 
     return (
-        <div className="w-[65%] md:w-[75%] flex flex-col bg-gradient-to-b from-gray-100 to-white shadow-lg transition-all duration-300">
-            {/* Header tetap di atas */}
+        <div className="w-full md:w-[75%] flex flex-col bg-gradient-to-b from-gray-100 to-white shadow-lg transition-all duration-300">
             <div className="sticky top-0 z-10 bg-white shadow-md">
-                <ChatHeader room={room} />
+                <ChatHeader room={room} onBack={onBack}/>
             </div>
 
-            {/* Chat Messages bisa di-scroll sendiri */}
             <div className="flex-1 overflow-y-auto px-4 py-2 h-screen">
                 <ChatMessages messages={messages} userRole={getUserEmail()} />
             </div>
 
-            {/* Input tetap di bawah */}
-            <div className="sticky bottom-22 md:bottom-0 bg-white shadow-md">
+            <div className="sticky bottom-18 md:bottom-0 bg-white shadow-md">
                 <MessageInput onSendMessage={handleSendMessage} />
             </div>
         </div>

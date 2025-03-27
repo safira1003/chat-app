@@ -1,18 +1,16 @@
 
 function ChatList({ rooms, selectedRoom, setSelectedRoom }) {
     return (
-        <div className="w-[35%] md:w-[25%] h-screen max-h-screen bg-white shadow-lg flex flex-col border-r border-gray-200">
-            {/* Header Chat List */}
+        <div className="w-full md:w-[25%] h-screen max-h-screen bg-white shadow-lg flex flex-col border-r border-gray-200">
             <div className="px-4 py-2 text-base font-semibold border-b bg-gray-100 text-gray-800">
                 Daftar Chat
             </div>
 
-            {/* Daftar chat bisa di-scroll */}
             <div className="flex-1 overflow-y-auto">
                 {rooms.map((chat) => (
                     <button
                         key={chat.room.id}
-                        className={`cursor-pointer flex items-center p-3 w-full text-left transition-all duration-300 
+                        className={`cursor-pointer flex items-center p-3 w-full text-left transition-all duration-300 border-stone-300 border-b-2
                             ${selectedRoom?.room.id === chat.room.id ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white" : "hover:bg-gray-100"}`}
                         onClick={() => setSelectedRoom(chat)}
                     >

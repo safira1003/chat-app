@@ -13,6 +13,7 @@ function App() {
   const [isRoleSelected, setIsRoleSelected] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [selectedRoom, setSelectedRoom] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const storedRole = localStorage.getItem("userRole");
@@ -27,6 +28,13 @@ function App() {
     } else {
       setRooms(chatData.results);
     }
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -34,6 +42,12 @@ function App() {
       localStorage.setItem("chatRooms", JSON.stringify(rooms));
     }
   }, [rooms]);
+
+  useEffect(() => {
+    if (activeMenu === "chat") {
+      setSelectedRoom(null);
+    }
+  }, [activeMenu]);
 
   const handleRoleSelect = (role) => {
     setUserRole(role);
@@ -59,13 +73,23 @@ function App() {
       <div className="flex flex-1 w-full h-screen">
         {activeMenu === "chat" ? (
           <>
-            <ChatList rooms={rooms} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
-            {selectedRoom ? (
-              <ChatRoom room={selectedRoom} userRole={userRole} />
+            {isMobile ? (
+              selectedRoom ? (
+                <ChatRoom room={selectedRoom} userRole={userRole} onBack={() => setSelectedRoom(null)} />
+              ) : (
+                <ChatList rooms={rooms} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
+              )
             ) : (
-              <div className="flex-1 flex items-center justify-center text-gray-500">
-                Pilih chat untuk memulai percakapan
-              </div>
+              <>
+                <ChatList rooms={rooms} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
+                {selectedRoom ? (
+                  <ChatRoom room={selectedRoom} userRole={userRole} />
+                ) : (
+                  <div className="flex-1 flex items-center justify-center text-gray-500">
+                    Pilih chat untuk memulai percakapan
+                  </div>
+                )}
+              </>
             )}
           </>
         ) : (
