@@ -8,7 +8,7 @@ function ToggleView({ userRole, setUserRole }) {
 
     return (
         <div className="flex flex-col space-y-2 mt-3">
-            <h3 className="text-sm font-semibold text-gray-800 text-start">Ganti Role</h3>
+            <h3 className="text-sm font-semibold text-gray-800 text-start">Pilih Role:</h3>
             <div className="flex gap-2">
                 {Object.keys(userProfiles).map((role) => (
                     <button

@@ -50,7 +50,7 @@ function MessageBubble({ message, userRole }) {
                 )}
 
                 {message.type === "document" && message.file_url.endsWith(".pdf") && (
-                    <div className="flex items-center space-x-3 bg-white text-gray-900 p-3 rounded-md shadow-md max-w-full md:max-w-[70%]">
+                    <div className="flex items-center space-x-3 bg-white text-gray-900 p-3 rounded-md shadow-md max-w-full">
                         <FontAwesomeIcon icon={faFilePdf} className="text-red-600 text-2xl" />
                         <div className="flex-1 overflow-hidden">
                             <p className="text-sm font-semibold truncate">
