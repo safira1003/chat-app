@@ -33,10 +33,21 @@ function ChatRoom({ room, userRole }) {
     };
 
     return (
-        <div className="flex-1 flex flex-col w-full bg-gradient-to-b from-gray-100 to-white shadow-lg overflow-hidden transition-all duration-300">
-            <ChatHeader room={room} />
-            <ChatMessages messages={messages} userRole={getUserEmail()} />
-            <MessageInput onSendMessage={handleSendMessage} />
+        <div className="w-[65%] md:w-[75%] flex flex-col bg-gradient-to-b from-gray-100 to-white shadow-lg transition-all duration-300">
+            {/* Header tetap di atas */}
+            <div className="sticky top-0 z-10 bg-white shadow-md">
+                <ChatHeader room={room} />
+            </div>
+
+            {/* Chat Messages bisa di-scroll sendiri */}
+            <div className="flex-1 overflow-y-auto px-4 py-2 h-screen">
+                <ChatMessages messages={messages} userRole={getUserEmail()} />
+            </div>
+
+            {/* Input tetap di bawah */}
+            <div className="sticky bottom-22 md:bottom-0 bg-white shadow-md">
+                <MessageInput onSendMessage={handleSendMessage} />
+            </div>
         </div>
     );
 }

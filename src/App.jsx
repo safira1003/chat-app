@@ -4,6 +4,7 @@ import ProfileMenu from "./components/ProfileMenu";
 import ChatList from "./components/ChatList";
 import ChatRoom from "./components/ChatRoom";
 import chatData from "./data.json";
+import BottomNav from "./components/BottomNav";
 
 function App() {
   const [activeMenu, setActiveMenu] = useState("chat");
@@ -27,10 +28,11 @@ function App() {
   }, [rooms]);
 
   return (
-    <div className="flex h-screen bg-white text-gray-900">
-      <Sidebar activeMenu={activeMenu} setActiveMenu={setActiveMenu} userRole={userRole} />
+    <div className="flex flex-col md:flex-row h-screen bg-white text-gray-900">
+      <Sidebar activeMenu={activeMenu} setActiveMenu={setActiveMenu} userRole={userRole} className="hidden md:flex" />
 
-      <div className="flex flex-1 w-full">
+      <div className="flex flex-1 w-full h-screen">
+
         {activeMenu === "chat" ? (
           <>
             <ChatList rooms={rooms} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
@@ -46,7 +48,10 @@ function App() {
           <ProfileMenu userRole={userRole} setUserRole={setUserRole} />
         )}
       </div>
-    </div>
+
+      <BottomNav activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
+
+    </div >
   );
 }
 

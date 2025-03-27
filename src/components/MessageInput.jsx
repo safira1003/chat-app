@@ -53,16 +53,18 @@ function MessageInput({ onSendMessage }) {
     };
 
     return (
-        <div className="flex items-center gap-3 p-4 bg-white/80 backdrop-blur-md shadow-lg border border-gray-200 rounded-2xl">
+        <div className="flex flex-wrap items-center gap-2 md:gap-3 p-3 md:p-4 bg-white/80 backdrop-blur-md shadow-lg border border-gray-200 rounded-2xl">
+            {/* Upload File */}
             <label className="cursor-pointer text-gray-600 hover:text-gray-900 transition">
-                <FontAwesomeIcon icon={faPaperclip} className="text-2xl" />
+                <FontAwesomeIcon icon={faPaperclip} className="text-xl md:text-2xl" />
                 <input type="file" className="hidden" onChange={handleFileChange} accept="image/*,video/mp4,application/pdf" />
             </label>
 
-            <div className="relative flex-1">
+            {/* Input Message */}
+            <div className="relative flex-1 w-full md:w-auto">
                 <input
                     type="text"
-                    className="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+                    className="w-full p-2 md:p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
                     placeholder="Tulis pesan di sini..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
@@ -70,15 +72,16 @@ function MessageInput({ onSendMessage }) {
                 />
 
                 {file && (
-                    <div className="absolute top-[-50px] left-0 flex items-center bg-blue-100 p-2 rounded-lg shadow-md">
-                        <span className="text-sm font-medium truncate max-w-[160px]">{file.name}</span>
+                    <div className="absolute top-[-40px] md:top-[-50px] left-0 flex items-center bg-blue-100 p-1 md:p-2 rounded-lg shadow-md mb-2 md:mb-0">
+                        <span className="text-xs md:text-sm font-medium truncate max-w-[120px] md:max-w-[160px]">{file.name}</span>
                         <FontAwesomeIcon icon={faTimes} className="ml-2 text-red-500 cursor-pointer hover:text-red-700" onClick={() => setFile(null)} />
                     </div>
                 )}
             </div>
 
+            {/* Send Button */}
             <button
-                className="cursor-pointer px-5 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-md hover:scale-105 transition-transform duration-200"
+                className="cursor-pointer px-4 py-2 md:px-5 md:py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-md hover:scale-105 transition-transform duration-200"
                 onClick={handleSend}
             >
                 <FontAwesomeIcon icon={faPaperPlane} />

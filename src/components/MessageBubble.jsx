@@ -28,12 +28,12 @@ function MessageBubble({ message, userRole }) {
 
     return (
         <div className={`flex flex-col ${isOwnMessage ? "items-end" : "items-start"} mb-4`}>
-            {!isOwnMessage && (
-                <p className="text-sm font-semibold text-gray-700 mb-1">{message.sender}</p>
-            )}
+            <p className="text-sm font-semibold text-gray-700 mb-1">
+                {isOwnMessage ? "Anda" : message.sender}
+            </p>
 
             <div
-                className="p-3 rounded-lg shadow-md max-w-xs text-white transition-all duration-300"
+                className="p-3 rounded-lg shadow-md w-auto max-w-[80%] md:max-w-xs text-white transition-all duration-300"
                 style={{ backgroundColor: getBubbleColor }}
             >
                 {message.type === "image" && (
@@ -44,28 +44,33 @@ function MessageBubble({ message, userRole }) {
                         <img
                             src={getLocalFile(message.file_url)}
                             alt="Image Preview"
-                            className="w-64 h-auto rounded-lg hover:scale-105 transition-transform duration-200"
+                            className="w-full md:w-64 h-auto rounded-lg hover:scale-105 transition-transform duration-200"
                         />
                     </div>
                 )}
 
                 {message.type === "document" && message.file_url.endsWith(".pdf") && (
-                    <div className="flex items-center space-x-3 bg-white text-gray-900 p-3 rounded-md shadow-md">
+                    <div className="flex items-center space-x-3 bg-white text-gray-900 p-3 rounded-md shadow-md max-w-full md:max-w-[70%]">
                         <FontAwesomeIcon icon={faFilePdf} className="text-red-600 text-2xl" />
-                        <div className="flex-1">
-                            <p className="text-sm font-semibold truncate w-40">
-                                {message.file_url.split("/").pop()} 
+                        <div className="flex-1 overflow-hidden">
+                            <p className="text-sm font-semibold truncate">
+                                {message.file_url.split("/").pop()}
                             </p>
                             <a
                                 href={getLocalFile(message.file_url)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-500 text-sm underline hover:text-blue-700"
+                                className="hidden md:inline text-blue-500 text-sm underline hover:text-blue-700"
                             >
                                 Lihat Dokumen
                             </a>
                         </div>
-                        <a href={getLocalFile(message.file_url)} download className="text-blue-500 hover:text-blue-700">
+                        <a
+                            href={getLocalFile(message.file_url)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:text-blue-700"
+                        >
                             <FontAwesomeIcon icon={faDownload} className="text-lg" />
                         </a>
                     </div>
@@ -73,7 +78,7 @@ function MessageBubble({ message, userRole }) {
 
                 {message.type === "video" && (
                     <div className="rounded-lg overflow-hidden">
-                        <video controls className="w-80 rounded-lg shadow-lg">
+                        <video controls className="w-full md:w-80 rounded-lg shadow-lg">
                             <source src={getLocalFile(message.file_url)} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
