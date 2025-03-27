@@ -1,14 +1,12 @@
-import './App.css'
+import React from "react";
+import ChatRoom from "./components/ChatRoom";
 
 function App() {
-
   return (
-    <>
-      <h1 class="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </>
-  )
+    <div className="h-screen flex justify-center items-center bg-gray-200">
+      Hello World
+    </div>
+  );
 }
 
-export default App
+export default App;
