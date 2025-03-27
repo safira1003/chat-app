@@ -34,7 +34,7 @@ function App() {
 
 
       {activeMenu === "chat" ? (
-        <div className="flex flex-1">
+        <div className="flex flex-1 w-auto w-full">
           <ChatList
             rooms={rooms}
             selectedRoom={selectedRoom}

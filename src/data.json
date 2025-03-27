@@ -28,30 +28,56 @@
                     "id": 885512,
                     "type": "text",
                     "message": "Selamat malam",
+                    "file_url": null, 
                     "sender": "customer@mail.com"
                 },
                 {
                     "id": 885513,
                     "type": "text",
                     "message": "Malam",
+                    "file_url": null, 
                     "sender": "agent@mail.com"
                 },
                 {
                     "id": 885514,
                     "type": "text",
                     "message": "Ada yang bisa saya bantu?",
+                    "file_url": null, 
                     "sender": "agent@mail.com"
                 },
                 {
                     "id": 885515,
                     "type": "text",
                     "message": "Saya ingin mengirimkan bukti pembayaran, karena diaplikasi selalu gagal",
+                    "file_url": null, 
                     "sender": "customer@mail.com"
                 },
                 {
                     "id": 885516,
                     "type": "text",
                     "message": "Baik, silahkan kirimkan lampiran bukti pembayarannya",
+                    "file_url": null, 
+                    "sender": "agent@mail.com"
+                },
+                {
+                    "id": 885517,
+                    "type": "image",
+                    "message": "Bukti pembayaran",
+                    "file_url": "/assets/bukti_pembayaran.jpg",
+                    "sender": "customer@mail.com"
+                },
+                {
+                    "id": 885518,
+                    "type": "document",
+                    "message": "Invoice pembayaran",
+                    "file_url": "/assets/invoice_pembayaran.pdf",
+                    "sender": "agent@mail.com"
+                },
+                {
+                    "id": 885519,
+                    "type": "video",
+                    "message": "Demo produk",
+                    "file_url": "/assets/demo_produk.mp4",
                     "sender": "agent@mail.com"
                 }
             ]

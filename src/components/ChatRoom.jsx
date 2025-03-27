@@ -10,7 +10,7 @@ function ChatRoom({ room, userRole }) {
         const savedMessages = JSON.parse(localStorage.getItem(storageKey));
         return savedMessages || room.comments;
     });
-    
+
     const getUserEmail = () => {
         const user = room.room.participant.find((p) => {
             if (userRole === "admin") return p.role === 0;
@@ -18,7 +18,7 @@ function ChatRoom({ room, userRole }) {
             if (userRole === "customer") return p.role === 2;
             return null;
         });
-        return user ? user.id : "unknown@mail.com"; // Default jika tidak ditemukan
+        return user ? user.id : "unknown@mail.com";
     };
 
     useEffect(() => {
@@ -26,21 +26,15 @@ function ChatRoom({ room, userRole }) {
         setMessages(savedMessages || room.comments);
     }, [room, storageKey]);
 
-    const handleSendMessage = (text) => {
-        const newMessage = {
-            id: Date.now(),
-            type: "text",
-            message: text,
-            sender: getUserEmail(), 
-        };
-
-        const updatedMessages = [...messages, newMessage];
+    const handleSendMessage = (newMessage) => {
+        const updatedMessages = [...messages, { ...newMessage, sender: getUserEmail() }];
         setMessages(updatedMessages);
         localStorage.setItem(storageKey, JSON.stringify(updatedMessages));
     };
 
+
     return (
-        <div className="flex-1 flex flex-col bg-white shadow-lg">
+        <div className="flex-1 flex flex-col bg-white shadow-lg w-full">
             <ChatHeader room={room} />
             <ChatMessages messages={messages} userRole={getUserEmail()} />
             <MessageInput onSendMessage={handleSendMessage} />
