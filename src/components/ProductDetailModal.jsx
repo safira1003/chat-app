@@ -1,37 +1,53 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 
 function ProductDetailModal({ room, closeModal }) {
-    if (!room || !room.room) return null; // Cegah error jika room belum tersedia
+
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        setIsVisible(true);
+    }, []);
+
+    const handleClose = () => {
+        setIsVisible(false);
+        setTimeout(closeModal, 200);
+    };
+
+    if (!room || !room.room) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div className="flex flex-col items-center bg-white rounded-lg shadow-lg p-6 w-96 relative">
-                {/* Tombol Close */}
+        <div
+            className={`fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-lg z-50 
+                        transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-0"}`}
+        >
+            <div
+                className={`flex flex-col items-center bg-white rounded-xl shadow-2xl p-6 w-96 relative transform transition-all duration-300 ease-out
+                            ${isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"}`}
+            >
                 <button
-                    className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 cursor-pointer"
-                    onClick={closeModal}
+                    className="cursor-pointer absolute top-3 right-3 text-gray-500 hover:text-red-500 transition-all duration-200"
+                    onClick={handleClose}
                 >
-                    <FontAwesomeIcon icon={faTimes} className="text-xl" />
+                    <FontAwesomeIcon icon={faTimes} className="text-2xl" />
                 </button>
 
-                {/* Gambar Produk */}
                 <img
                     src={room.room.image_url}
                     alt={room.room.name}
-                    className="w-75 h-75 object-cover rounded-lg mb-4"
+                    className="w-52 h-52 object-cover rounded-lg shadow-md border border-gray-300"
                 />
 
-                {/* Nama Produk */}
-                <h2 className="text-xl font-semibold text-center">{room.room.name}</h2>
+                <h2 className="text-xl font-bold text-gray-800 mt-4">{room.room.name}</h2>
 
-                {/* Daftar Peserta */}
-                <div className="mt-4">
-                    <h3 className="text-lg font-medium mb-2">Peserta Chat:</h3>
-                    <ul className="list-disc pl-5 space-y-1">
+                <div className="mt-4 w-full">
+                    <h3 className="text-base font-medium text-gray-700 mb-2 text-start">Peserta Chat :</h3>
+                    <ul className="bg-gray-100 p-3 rounded-lg shadow-inner space-y-2">
                         {room.room.participant.map((user) => (
-                            <li key={user.id} className="text-gray-700">
-                                {user.name} ({user.id})
+                            <li key={user.id} className="text-gray-800 text-sm font-medium flex items-center gap-2">
+                                {user.name} -
+                                <span className="bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{user.id}</span>
                             </li>
                         ))}
                     </ul>

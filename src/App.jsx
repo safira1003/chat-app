@@ -9,7 +9,6 @@ function App() {
   const [activeMenu, setActiveMenu] = useState("chat");
   const [userRole, setUserRole] = useState("customer");
   const [rooms, setRooms] = useState([]);
-
   const [selectedRoom, setSelectedRoom] = useState(null);
 
   useEffect(() => {
@@ -21,7 +20,6 @@ function App() {
     }
   }, []);
 
-
   useEffect(() => {
     if (rooms.length > 0) {
       localStorage.setItem("chatRooms", JSON.stringify(rooms));
@@ -29,31 +27,25 @@ function App() {
   }, [rooms]);
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      <Sidebar activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
+    <div className="flex h-screen bg-white text-gray-900">
+      <Sidebar activeMenu={activeMenu} setActiveMenu={setActiveMenu} userRole={userRole} />
 
-
-      {activeMenu === "chat" ? (
-        <div className="flex flex-1 w-auto w-full">
-          <ChatList
-            rooms={rooms}
-            selectedRoom={selectedRoom}
-            setSelectedRoom={setSelectedRoom}
-          />
-          {selectedRoom ? (
-            <ChatRoom
-              room={selectedRoom}
-              userRole={userRole}
-            />
-          ) : (
-            <div className="flex-1 flex items-center justify-center text-gray-500">
-              Pilih chat untuk memulai percakapan
-            </div>
-          )}
-        </div>
-      ) : (
-        <ProfileMenu userRole={userRole} setUserRole={setUserRole} />
-      )}
+      <div className="flex flex-1 w-full">
+        {activeMenu === "chat" ? (
+          <>
+            <ChatList rooms={rooms} selectedRoom={selectedRoom} setSelectedRoom={setSelectedRoom} />
+            {selectedRoom ? (
+              <ChatRoom room={selectedRoom} userRole={userRole} />
+            ) : (
+              <div className="flex-1 flex items-center justify-center text-gray-500">
+                Pilih chat untuk memulai percakapan
+              </div>
+            )}
+          </>
+        ) : (
+          <ProfileMenu userRole={userRole} setUserRole={setUserRole} />
+        )}
+      </div>
     </div>
   );
 }

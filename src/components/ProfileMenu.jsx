@@ -1,3 +1,4 @@
+// ProfileMenu.js
 import ToggleView from "./ToggleView";
 
 const userProfiles = {
@@ -8,18 +9,21 @@ const userProfiles = {
 
 function ProfileMenu({ userRole, setUserRole }) {
     return (
-        <div className="flex flex-col items-center justify-center h-full w-full ">
-            <div className="bg-white p-6 rounded-lg shadow-md w-128">
-                <h2 className="text-xl font-semibold text-gray-800 mb-4 flex gap-2 items-center">Profile</h2>
+        <div className="flex flex-col items-center justify-center h-full w-full p-4">
+            <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-md border border-gray-300">
+                <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Profile</h2>
 
-                <div className="mb-4 flex gap-2 items-center">
-                    <p className="text-gray-600">Nama:</p>
-                    <p className="text-xl font-medium">{userProfiles[userRole].name}</p>
+                <div className="mb-4 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-md">
+                    <p className="text-sm opacity-80">Nama:</p>
+                    <p className="text-lg font-semibold">{userProfiles[userRole].name}</p>
                 </div>
-                <div className="mb-4 flex gap-2 items-center">
-                    <p className="text-gray-600">ID:</p>
-                    <p className="text-xl font-medium">{userProfiles[userRole].id}</p>
+
+                <div className="mb-4 p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-md">
+                    <p className="text-sm opacity-80">ID:</p>
+                    <p className="text-lg font-semibold">{userProfiles[userRole].id}</p>
                 </div>
+                <hr />
+                
                 <ToggleView userRole={userRole} setUserRole={setUserRole} />
             </div>
         </div>

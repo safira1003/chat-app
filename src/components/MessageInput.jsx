@@ -11,7 +11,7 @@ function MessageInput({ onSendMessage }) {
 
         let fileUrl = null;
         if (file) {
-            fileUrl = await saveFileToLocal(file); // Simpan file ke lokal
+            fileUrl = await saveFileToLocal(file);
         }
 
         const newMessage = {
@@ -40,43 +40,45 @@ function MessageInput({ onSendMessage }) {
     };
 
     const saveFileToLocal = async (file) => {
-        const filePath = `/uploads/${Date.now()}_${file.name}`; // Simpan di public/uploads/
+        const filePath = `/uploads/${Date.now()}_${file.name}`;
         const fileReader = new FileReader();
 
         return new Promise((resolve) => {
             fileReader.onloadend = () => {
-                localStorage.setItem(filePath, fileReader.result); // Simpan di localStorage
+                localStorage.setItem(filePath, fileReader.result);
                 resolve(filePath);
             };
-            fileReader.readAsDataURL(file); // Convert file ke base64
+            fileReader.readAsDataURL(file);
         });
     };
 
     return (
-        <div className="flex items-center p-4 border-t bg-white">
-            <label className="cursor-pointer text-gray-500 mr-3">
-                <FontAwesomeIcon icon={faPaperclip} className="text-xl" />
+        <div className="flex items-center gap-3 p-4 bg-white/80 backdrop-blur-md shadow-lg border border-gray-200 rounded-2xl">
+            <label className="cursor-pointer text-gray-600 hover:text-gray-900 transition">
+                <FontAwesomeIcon icon={faPaperclip} className="text-2xl" />
                 <input type="file" className="hidden" onChange={handleFileChange} accept="image/*,video/mp4,application/pdf" />
             </label>
 
-            <input
-                type="text"
-                className="flex-1 p-2 border rounded-lg focus:outline-none"
-                placeholder="Ketik pesan..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            />
+            <div className="relative flex-1">
+                <input
+                    type="text"
+                    className="w-full p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+                    placeholder="Tulis pesan di sini..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                />
 
-            {file && (
-                <div className="flex items-center bg-gray-200 p-2 rounded-md mx-2">
-                    <span className="text-sm">{file.name}</span>
-                    <FontAwesomeIcon icon={faTimes} className="ml-2 text-red-600 cursor-pointer" onClick={() => setFile(null)} />
-                </div>
-            )}
+                {file && (
+                    <div className="absolute top-[-50px] left-0 flex items-center bg-blue-100 p-2 rounded-lg shadow-md">
+                        <span className="text-sm font-medium truncate max-w-[160px]">{file.name}</span>
+                        <FontAwesomeIcon icon={faTimes} className="ml-2 text-red-500 cursor-pointer hover:text-red-700" onClick={() => setFile(null)} />
+                    </div>
+                )}
+            </div>
 
             <button
-                className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer"
+                className="cursor-pointer px-5 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full shadow-md hover:scale-105 transition-transform duration-200"
                 onClick={handleSend}
             >
                 <FontAwesomeIcon icon={faPaperPlane} />

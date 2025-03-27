@@ -9,9 +9,15 @@ function ChatMessages({ messages, userRole }) {
     }, [messages]);
 
     return (
-        <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-100">
-            {messages.map((msg) => (
-                <MessageBubble key={msg.id} message={msg} userRole={userRole} />
+        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-3 
+                       
+                        scrollbar-thin scrollbar-thumb-blue-300 scrollbar-track-transparent">
+            {messages.map((msg, index) => (
+                <MessageBubble
+                    key={msg.id || index}
+                    message={msg}
+                    userRole={userRole}
+                />
             ))}
             <div ref={messagesEndRef} />
         </div>

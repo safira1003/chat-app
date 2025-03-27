@@ -32,48 +32,55 @@ function MessageBubble({ message, userRole }) {
                 <p className="text-sm font-semibold text-gray-700 mb-1">{message.sender}</p>
             )}
 
-            <div className={`p-3 rounded-lg text-white max-w-xs`} style={{ backgroundColor: getBubbleColor }}>
+            <div
+                className="p-3 rounded-lg shadow-md max-w-xs text-white transition-all duration-300"
+                style={{ backgroundColor: getBubbleColor }}
+            >
                 {message.type === "image" && (
                     <div
-                        className="cursor-pointer"
+                        className="cursor-pointer rounded-lg overflow-hidden"
                         onClick={() => window.open(getLocalFile(message.file_url), "_blank")}
                     >
-                        <img src={getLocalFile(message.file_url)} alt="Image Preview" className="w-64 rounded-md" />
+                        <img
+                            src={getLocalFile(message.file_url)}
+                            alt="Image Preview"
+                            className="w-64 h-auto rounded-lg hover:scale-105 transition-transform duration-200"
+                        />
                     </div>
                 )}
 
                 {message.type === "document" && message.file_url.endsWith(".pdf") && (
-                    <div className="bg-white text-gray-900 p-3 rounded-md flex items-center space-x-3">
+                    <div className="flex items-center space-x-3 bg-white text-gray-900 p-3 rounded-md shadow-md">
                         <FontAwesomeIcon icon={faFilePdf} className="text-red-600 text-2xl" />
                         <div className="flex-1">
-                            <p className="text-sm font-semibold">
-                                {message.file_url.split("/").pop()} {/* Ambil nama file dari URL */}
+                            <p className="text-sm font-semibold truncate w-40">
+                                {message.file_url.split("/").pop()} 
                             </p>
                             <a
                                 href={getLocalFile(message.file_url)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-500 text-sm underline"
+                                className="text-blue-500 text-sm underline hover:text-blue-700"
                             >
                                 Lihat Dokumen
                             </a>
                         </div>
-                        <a href={getLocalFile(message.file_url)} download className="text-blue-500">
+                        <a href={getLocalFile(message.file_url)} download className="text-blue-500 hover:text-blue-700">
                             <FontAwesomeIcon icon={faDownload} className="text-lg" />
                         </a>
                     </div>
                 )}
 
                 {message.type === "video" && (
-                    <div>
-                        <video controls className="w-80">
+                    <div className="rounded-lg overflow-hidden">
+                        <video controls className="w-80 rounded-lg shadow-lg">
                             <source src={getLocalFile(message.file_url)} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>
                 )}
 
-                {message.message && <p className="mb-2">{message.message}</p>}
+                {message.message && <p className="mt-2">{message.message}</p>}
             </div>
         </div>
     );

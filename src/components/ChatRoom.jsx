@@ -32,9 +32,8 @@ function ChatRoom({ room, userRole }) {
         localStorage.setItem(storageKey, JSON.stringify(updatedMessages));
     };
 
-
     return (
-        <div className="flex-1 flex flex-col bg-white shadow-lg w-full">
+        <div className="flex-1 flex flex-col w-full bg-gradient-to-b from-gray-100 to-white shadow-lg overflow-hidden transition-all duration-300">
             <ChatHeader room={room} />
             <ChatMessages messages={messages} userRole={getUserEmail()} />
             <MessageInput onSendMessage={handleSendMessage} />
